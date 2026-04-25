@@ -2,497 +2,655 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sahara Store</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sahara Store — شحن الألعاب في الجزائر</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--gold:#FFB800;--gold2:#FF8C00;--bg:#07090F;--bg2:#0C0F1A;--bg3:#111827;--card:#0F1520;--border:#1A2235;--text:#E8EEFF;--muted:#5A6A85;--ml:#00C8FF;--ff:#FF4500;--pubg:#F0C000}
-body{background:var(--bg);color:var(--text);font-family:'Cairo',sans-serif;overflow-x:hidden}
+:root{
+  --bg:#080A10;--bg2:#0C0E16;--card:#111420;--card2:#161928;
+  --b1:#1C1F30;--b2:#242840;
+  --gold:#F0A500;--gold2:#C88000;
+  --goldg:linear-gradient(135deg,#F5B830 0%,#E08800 100%);
+  --goldt:linear-gradient(135deg,rgba(245,184,48,.12),rgba(224,136,0,.06));
+  --ml:#00C8FF;--ff:#FF5500;--pubg:#F0C000;
+  --green:#00D68F;--red:#FF4757;--purple:#8B6FCC;
+  --text:#ECEEF5;--muted:#6B7494;--muted2:#3E4460;
+  --r:14px;--rs:9px;
+}
+body{background:var(--bg);color:var(--text);font-family:'Cairo',sans-serif;overflow-x:hidden;min-height:100vh}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--b2);border-radius:4px}
 
 /* NAV */
-nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(7,9,15,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
-.nav-inner{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 1.5rem}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo-box{width:36px;height:36px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;font-size:17px}
-.logo-text{font-size:17px;font-weight:800;background:linear-gradient(90deg,var(--gold),#fff8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.nav-links{display:flex;gap:22px;list-style:none}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;transition:.2s}.nav-links a:hover{color:var(--gold)}
-.nav-cta{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;border:none;padding:7px 18px;border-radius:8px;font-family:'Cairo',sans-serif;font-weight:700;font-size:13px;cursor:pointer}
+nav{position:fixed;top:0;width:100%;z-index:300;background:rgba(8,10,16,.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--b1)}
+.nav-w{max-width:1200px;margin:auto;display:flex;align-items:center;height:60px;padding:0 1.5rem;gap:1.5rem}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.logo-mark{width:36px;height:36px;background:var(--goldg);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;font-size:17px;letter-spacing:-1px;box-shadow:0 4px 16px rgba(240,165,0,.3)}
+.logo-txt{font-size:16px;font-weight:800;color:var(--text);letter-spacing:.3px}
+.logo-txt em{font-style:normal;color:var(--gold)}
+.nav-search{flex:1;max-width:320px;position:relative}
+.nav-search input{width:100%;background:var(--card);border:1px solid var(--b1);color:var(--text);padding:8px 12px 8px 36px;border-radius:10px;font-family:'Cairo',sans-serif;font-size:13px;outline:none;transition:.2s}
+.nav-search input:focus{border-color:var(--b2);background:var(--card2)}
+.ns-ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:13px;opacity:.4}
+.nav-links{display:flex;gap:2px;margin-right:auto}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;padding:6px 13px;border-radius:8px;transition:.2s;white-space:nowrap;font-weight:600}
+.nav-links a:hover,.nav-links a.active{color:var(--text);background:var(--card)}
+.nav-act{display:flex;gap:8px;align-items:center}
+.btn-sec{background:transparent;border:1px solid var(--b2);color:var(--text);padding:7px 16px;border-radius:9px;font-family:'Cairo',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
+.btn-sec:hover{border-color:var(--gold);color:var(--gold)}
+.btn-pri{background:var(--goldg);border:none;color:#000;padding:8px 20px;border-radius:9px;font-family:'Cairo',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:.2s;box-shadow:0 4px 16px rgba(240,165,0,.2)}
+.btn-pri:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 6px 20px rgba(240,165,0,.3)}
 
 /* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;padding-top:60px;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% -10%,rgba(255,184,0,.12),transparent 65%)}
-.hero-content{max-width:1200px;margin:auto;padding:4rem 1.5rem;display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center;width:100%}
-.badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,184,0,.08);border:1px solid rgba(255,184,0,.25);border-radius:20px;padding:5px 13px;font-size:12px;color:var(--gold);margin-bottom:18px}
-.badge-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:blink 1.4s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-h1{font-size:clamp(2rem,3.8vw,3rem);font-weight:900;line-height:1.18;margin-bottom:1rem}
-h1 em{font-style:normal;background:linear-gradient(90deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero-sub{color:var(--muted);font-size:14px;line-height:1.85;margin-bottom:1.8rem}
-.hero-btns{display:flex;gap:10px}
-.btn-g{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;border:none;padding:12px 26px;border-radius:10px;font-family:'Cairo',sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:.2s}
-.btn-g:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(255,184,0,.3)}
-.btn-o{background:transparent;color:var(--text);border:1px solid var(--border);padding:12px 26px;border-radius:10px;font-family:'Cairo',sans-serif;font-weight:600;font-size:14px;cursor:pointer;transition:.2s}
-.btn-o:hover{border-color:var(--gold);color:var(--gold)}
-.stats{display:flex;gap:2rem;margin-top:2.2rem}
-.stat-n{font-size:1.7rem;font-weight:900;color:var(--gold)}
-.stat-l{font-size:11px;color:var(--muted)}
+.hero{padding:100px 1.5rem 0;position:relative;overflow:hidden}
+.hero-glow-1{position:absolute;top:-120px;right:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(240,165,0,.07) 0%,transparent 65%);pointer-events:none}
+.hero-glow-2{position:absolute;bottom:0;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(74,144,226,.05) 0%,transparent 65%);pointer-events:none}
+.hero-w{max-width:1200px;margin:auto;display:grid;grid-template-columns:1fr 420px;gap:4rem;align-items:center;padding:3rem 0 0}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(240,165,0,.07);border:1px solid rgba(240,165,0,.18);border-radius:30px;padding:5px 14px 5px 10px;font-size:12px;color:var(--gold);margin-bottom:1.5rem;font-weight:700}
+.badge-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;flex-shrink:0;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+h1{font-size:clamp(2rem,4vw,3.2rem);font-weight:900;line-height:1.15;margin-bottom:1.2rem;letter-spacing:-.5px}
+.hl{background:var(--goldg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{color:var(--muted);font-size:14.5px;line-height:2;margin-bottom:2rem;max-width:500px}
+.hero-ctas{display:flex;gap:10px;flex-wrap:wrap}
+.hero-ctas .btn-pri{padding:12px 28px;font-size:14px}
+.hero-ctas .btn-sec{padding:12px 22px;font-size:14px}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--b1);border:1px solid var(--b1);border-radius:14px;overflow:hidden;margin-top:2.5rem}
+.hs{background:var(--card);padding:1rem;text-align:center}
+.hs-n{font-size:1.5rem;font-weight:900;color:var(--gold);line-height:1}
+.hs-l{font-size:11px;color:var(--muted);margin-top:4px;font-weight:600}
 
-/* HERO VISUAL — SVG game art */
-.hero-visual{display:flex;align-items:center;justify-content:center}
-.hero-svg-wrap{position:relative;width:320px;height:320px}
-.hero-svg-wrap svg{width:100%;height:100%}
-.float-anim{animation:floatY 3s ease-in-out infinite}
-@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+/* HERO CARDS */
+.hero-right{position:relative;height:360px}
+.hcard{position:absolute;background:var(--card);border:1px solid var(--b2);border-radius:16px;padding:14px 18px;display:flex;align-items:center;gap:14px;min-width:240px}
+.hcard-1{top:10px;right:0;animation:flt1 5s ease-in-out infinite}
+.hcard-2{top:140px;right:40px;animation:flt2 5s ease-in-out infinite .9s}
+.hcard-3{top:268px;right:10px;animation:flt1 5s ease-in-out infinite 1.8s}
+@keyframes flt1{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes flt2{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+.hc-ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.hc-nm{font-size:13px;font-weight:800}
+.hc-pr{font-size:11px;color:var(--muted)}
+.hc-disc{margin-right:auto;background:rgba(0,214,143,.12);color:var(--green);font-size:11px;font-weight:800;padding:3px 9px;border-radius:6px;border:1px solid rgba(0,214,143,.2)}
 
-/* PROMO BANNER */
-.promo-banner{background:linear-gradient(90deg,#1A0A00,#3D1500,#1A0A00);border:1px solid rgba(255,69,0,.35);border-radius:14px;padding:14px 22px;display:flex;align-items:center;gap:14px;margin:0 1.5rem 2.5rem;max-width:1200px;margin-left:auto;margin-right:auto}
-.promo-fire{font-size:28px;animation:shake .8s infinite}
-@keyframes shake{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
-.promo-text strong{color:var(--gold);font-size:15px}
-.promo-text p{color:var(--muted);font-size:12px;margin-top:2px}
-.promo-code{margin-right:auto;background:rgba(255,184,0,.1);border:1px dashed var(--gold);border-radius:8px;padding:6px 14px;font-size:13px;font-weight:700;color:var(--gold);letter-spacing:1px;cursor:pointer}
+/* TICKER */
+.ticker-wrap{background:var(--card);border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);padding:10px 0;overflow:hidden;margin-top:2.5rem}
+.ticker{display:flex;gap:0;animation:tick 28s linear infinite;white-space:nowrap}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tick-item{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);padding:0 2rem;flex-shrink:0;font-weight:600}
+.tick-item b{color:var(--gold)}
+.tick-sep{color:var(--b2)}
 
-/* SECTION */
-.sec{padding:4rem 1.5rem;max-width:1200px;margin:auto}
-.sec-tag{display:inline-block;background:rgba(255,184,0,.08);border:1px solid rgba(255,184,0,.2);color:var(--gold);font-size:11px;padding:3px 13px;border-radius:20px;margin-bottom:10px}
-.sec-h{font-size:clamp(1.5rem,2.8vw,2rem);font-weight:800;margin-bottom:6px}
-.sec-h span{color:var(--gold)}
-.sec-sub{color:var(--muted);font-size:13px;margin-bottom:2.2rem}
+/* SECTION WRAPPER */
+.sec{max-width:1200px;margin:0 auto;padding:2.5rem 1.5rem}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.sec-title{font-size:18px;font-weight:800;display:flex;align-items:center;gap:10px}
+.sec-title::before{content:'';width:4px;height:20px;background:var(--goldg);border-radius:2px;flex-shrink:0}
+.sec-title em{font-style:normal;color:var(--gold)}
+.sec-link{font-size:12px;color:var(--muted);font-weight:600;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:4px}
+.sec-link:hover{color:var(--gold)}
+
+/* TABS */
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:1px 0 6px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{background:var(--card);border:1px solid var(--b1);color:var(--muted);padding:8px 18px;border-radius:10px;font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:.2s;white-space:nowrap;flex-shrink:0}
+.tab:hover{border-color:var(--b2);color:var(--text)}
+.tab.on{background:var(--goldg);border-color:transparent;color:#000}
 
 /* GAME CARDS */
-.games-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.game-card{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;cursor:pointer;transition:.3s;position:relative}
-.game-card:hover{transform:translateY(-7px)}
-.game-card.ml:hover{border-color:var(--ml);box-shadow:0 14px 40px rgba(0,200,255,.15)}
-.game-card.ff:hover{border-color:var(--ff);box-shadow:0 14px 40px rgba(255,69,0,.15)}
-.game-card.pubg:hover{border-color:var(--pubg);box-shadow:0 14px 40px rgba(240,192,0,.15)}
+.g-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.gc{background:var(--card);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:.3s;position:relative}
+.gc:hover{border-color:var(--b2);transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.gc-banner{height:160px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.gc.ml .gc-banner{background:linear-gradient(160deg,#020D1E 0%,#00264D 60%,#003366 100%)}
+.gc.ff .gc-banner{background:linear-gradient(160deg,#120100 0%,#2D0600 60%,#3D1000 100%)}
+.gc.pubg .gc-banner{background:linear-gradient(160deg,#0C0900 0%,#1C1600 60%,#2A2100 100%)}
+.gc-glow{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:200px;height:120px;border-radius:50%;filter:blur(30px);opacity:.5}
+.gc.ml .gc-glow{background:var(--ml)}
+.gc.ff .gc-glow{background:var(--ff)}
+.gc.pubg .gc-glow{background:var(--pubg)}
+.gc-tag{position:absolute;top:10px;right:10px;font-size:10px;font-weight:800;padding:3px 9px;border-radius:6px;z-index:2}
+.tag-disc{background:var(--red);color:#fff}
+.tag-hot{background:rgba(240,165,0,.15);border:1px solid rgba(240,165,0,.3);color:var(--gold)}
+.gc svg{position:relative;z-index:1}
+.gc-body{padding:1.1rem}
+.gc-name{font-size:15px;font-weight:800;margin-bottom:2px}
+.gc-sub{font-size:11px;color:var(--muted);margin-bottom:12px;font-weight:600}
+.gc-ft{display:flex;align-items:center;justify-content:space-between}
+.gc-from{font-size:10px;color:var(--muted2)}
+.gc-prices{display:flex;align-items:baseline;gap:6px}
+.gc-old{font-size:11px;color:var(--muted2);text-decoration:line-through}
+.gc-price{font-size:17px;font-weight:900;color:var(--gold)}
+.gc-act{background:var(--card2);border:1px solid var(--b2);color:var(--text);padding:8px 18px;border-radius:var(--rs);font-family:'Cairo',sans-serif;font-size:12px;font-weight:800;cursor:pointer;transition:.2s;white-space:nowrap}
+.gc-act:hover{background:var(--goldg);border-color:transparent;color:#000}
 
-/* SVG banner per game */
-.game-banner{height:160px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.game-card.ml .game-banner{background:linear-gradient(135deg,#00091F 0%,#001A3D 60%,#002855 100%)}
-.game-card.ff .game-banner{background:linear-gradient(135deg,#150500 0%,#2D0E00 60%,#3D1500 100%)}
-.game-card.pubg .game-banner{background:linear-gradient(135deg,#0F0D00 0%,#252000 60%,#3A3300 100%)}
-.game-banner svg{width:90px;height:90px;filter:drop-shadow(0 0 18px currentColor)}
-.game-card.ml .game-banner svg{color:var(--ml)}
-.game-card.ff .game-banner svg{color:var(--ff)}
-.game-card.pubg .game-banner svg{color:var(--pubg)}
-.discount-badge{position:absolute;top:10px;right:10px;background:linear-gradient(135deg,#FF4500,#CC2200);color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:8px}
-.game-body{padding:1.1rem}
-.game-name{font-size:16px;font-weight:800;margin-bottom:3px}
-.game-desc{font-size:12px;color:var(--muted);margin-bottom:10px}
-.game-price-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.game-from{font-size:12px;color:var(--muted)}
-.game-price{font-size:17px;font-weight:900;color:var(--gold)}
-.game-old{font-size:12px;color:var(--muted);text-decoration:line-through}
-.charge-btn{width:100%;padding:10px;border:none;border-radius:10px;font-family:'Cairo',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:.2s}
-.ml .charge-btn{background:linear-gradient(135deg,#00A8D4,#007A9C);color:#fff}
-.ff .charge-btn{background:linear-gradient(135deg,#FF4500,#CC2200);color:#fff}
-.pubg .charge-btn{background:linear-gradient(135deg,#F0C000,#C8A000);color:#000}
-.charge-btn:hover{opacity:.85}
+/* PROMOS */
+.promo-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pc{border-radius:18px;padding:2rem;position:relative;overflow:hidden;border:1px solid transparent;cursor:pointer;transition:.3s}
+.pc:hover{transform:translateY(-4px)}
+.pc.p1{background:linear-gradient(145deg,#080F09,#081808);border-color:rgba(0,214,143,.15)}
+.pc.p2{background:linear-gradient(145deg,#0C0814,#14082A);border-color:rgba(139,111,204,.2)}
+.pc-light{position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;opacity:.12;filter:blur(50px)}
+.p1 .pc-light{background:var(--green)}
+.p2 .pc-light{background:var(--purple)}
+.pc-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:7px;display:inline-block;margin-bottom:12px}
+.p1 .pc-tag{background:rgba(0,214,143,.12);color:var(--green);border:1px solid rgba(0,214,143,.2)}
+.p2 .pc-tag{background:rgba(139,111,204,.15);color:#A080CC;border:1px solid rgba(139,111,204,.25)}
+.pc-title{font-size:20px;font-weight:900;margin-bottom:6px;line-height:1.2}
+.pc-desc{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:16px}
+.pc-bg{font-size:80px;font-weight:900;opacity:.04;position:absolute;bottom:-10px;left:16px;line-height:1}
 
-/* OFFERS */
-.offers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.offer-card{border-radius:14px;padding:1.3rem;position:relative;overflow:hidden;border:1px solid transparent}
-.offer-card.hot{background:linear-gradient(135deg,#1A0800,#2D1200);border-color:rgba(255,69,0,.3)}
-.offer-card.special{background:linear-gradient(135deg,#0A001A,#150030);border-color:rgba(150,80,255,.3)}
-.offer-card.new{background:linear-gradient(135deg,#001A0A,#003018);border-color:rgba(0,200,100,.3)}
-.offer-tag{font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;display:inline-block;margin-bottom:10px}
-.hot .offer-tag{background:rgba(255,69,0,.2);color:#FF6030}
-.special .offer-tag{background:rgba(150,80,255,.2);color:#A060FF}
-.new .offer-tag{background:rgba(0,200,100,.2);color:#00C864}
-.offer-title{font-size:15px;font-weight:800;margin-bottom:6px}
-.offer-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px}
-.offer-discount{font-size:28px;font-weight:900}
-.hot .offer-discount{color:#FF6030}
-.special .offer-discount{color:#A060FF}
-.new .offer-discount{color:#00C864}
-.offer-sub{font-size:11px;color:var(--muted)}
-
-/* FEATURES */
-.feats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.feat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.4rem 1rem;text-align:center;transition:.3s}
-.feat:hover{border-color:rgba(255,184,0,.3);transform:translateY(-4px)}
-.feat-ico{font-size:28px;margin-bottom:10px}
-.feat-t{font-size:13px;font-weight:700;margin-bottom:5px}
-.feat-d{font-size:11px;color:var(--muted);line-height:1.6}
+/* WHY */
+.why-bg{background:var(--bg2);border-top:1px solid var(--b1);border-bottom:1px solid var(--b1)}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:1.5rem}
+.wc{background:var(--card);border:1px solid var(--b1);border-radius:var(--r);padding:1.5rem 1rem;text-align:center;transition:.3s;cursor:default}
+.wc:hover{border-color:var(--b2);transform:translateY(-4px)}
+.wc-ico{width:52px;height:52px;border-radius:14px;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:24px}
+.wc-t{font-size:13px;font-weight:800;margin-bottom:6px}
+.wc-d{font-size:12px;color:var(--muted);line-height:1.8}
 
 /* MODAL */
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:300;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:.25s}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:600;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:.25s;backdrop-filter:blur(8px)}
 .overlay.on{opacity:1;pointer-events:all}
-.modal{background:var(--bg3);border:1px solid var(--border);border-radius:20px;width:100%;max-width:540px;max-height:90vh;overflow-y:auto;padding:1.8rem;position:relative;transform:translateY(18px);transition:.25s}
-.overlay.on .modal{transform:translateY(0)}
-.mclose{position:absolute;top:14px;left:14px;background:var(--card);border:1px solid var(--border);color:var(--muted);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center}
-.mclose:hover{color:#fff}
-.mhead{display:flex;align-items:center;gap:12px;margin-bottom:1.4rem}
-.mico{font-size:32px}
-.mtitle{font-size:18px;font-weight:800}
-.msub{font-size:12px;color:var(--muted)}
-.flabel{font-size:12px;color:var(--muted);margin-bottom:5px;display:block;font-weight:600}
-.finput{width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);padding:11px 13px;border-radius:10px;font-family:'Cairo',sans-serif;font-size:13px;outline:none;transition:.2s;margin-bottom:.9rem}
-.finput:focus{border-color:var(--gold)}
-.pkgs{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:1rem}
-.pkg{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:12px 8px;text-align:center;cursor:pointer;transition:.2s;position:relative}
-.pkg:hover{border-color:var(--gold)}
-.pkg.sel{border-color:var(--gold);background:rgba(255,184,0,.07)}
-.pkg-pop{position:absolute;top:-8px;right:50%;transform:translateX(50%);background:var(--gold);color:#000;font-size:9px;font-weight:800;padding:2px 7px;border-radius:5px}
-.pkg-disc{position:absolute;top:-8px;left:6px;background:#FF4500;color:#fff;font-size:9px;font-weight:800;padding:2px 7px;border-radius:5px}
-.pkg-amt{font-size:16px;font-weight:900;color:var(--gold)}
-.pkg-unit{font-size:10px;color:var(--muted);margin:2px 0}
-.pkg-price{font-size:13px;font-weight:700}
-.pkg-old{font-size:10px;color:var(--muted);text-decoration:line-through}
-.pays{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:1.3rem}
-.pay{background:var(--card);border:1.5px solid var(--border);border-radius:11px;padding:11px;display:flex;align-items:center;gap:9px;cursor:pointer;transition:.2s}
-.pay:hover,.pay.sel{border-color:var(--gold);background:rgba(255,184,0,.05)}
-.pay-ico{font-size:20px}
-.pay-lbl{font-size:12px;font-weight:700}
-.pay-sub{font-size:10px;color:var(--muted)}
-.summary{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:13px;margin-bottom:1.1rem}
-.sum-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px}
-.sum-row:last-child{font-size:14px;font-weight:800;color:var(--gold);border-top:1px solid var(--border);padding-top:7px;margin-top:5px;margin-bottom:0}
-.sub-btn{width:100%;padding:13px;border:none;border-radius:11px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;font-family:'Cairo',sans-serif;font-weight:800;font-size:15px;cursor:pointer;transition:.2s}
-.sub-btn:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(255,184,0,.28)}
-.success{text-align:center;padding:1.5rem 0}
-.s-ico{font-size:56px;animation:pop .5s ease;margin-bottom:12px}
-@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.18)}100%{transform:scale(1)}}
-.s-title{font-size:20px;font-weight:800;color:#4ADE80;margin-bottom:8px}
-.s-id{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:10px;margin:14px 0;font-family:monospace;font-size:15px;color:var(--gold);letter-spacing:2px}
-.s-msg{color:var(--muted);font-size:13px;line-height:1.7}
+.modal{background:var(--card);border:1px solid var(--b2);border-radius:22px;width:100%;max-width:580px;max-height:92vh;overflow-y:auto;position:relative;transform:translateY(20px) scale(.98);transition:.3s}
+.overlay.on .modal{transform:translateY(0) scale(1)}
+.modal-hdr{padding:1.5rem 1.5rem .5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--card);z-index:2;border-bottom:1px solid var(--b1)}
+.mh-left{display:flex;align-items:center;gap:12px}
+.mh-ico{font-size:30px;line-height:1}
+.mh-name{font-size:17px;font-weight:900}
+.mh-sub{font-size:11px;color:var(--muted);font-weight:600}
+.mclose{width:32px;height:32px;background:var(--card2);border:1px solid var(--b1);color:var(--muted);border-radius:8px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0}
+.mclose:hover{color:var(--text);border-color:var(--b2)}
+.mbody{padding:1.5rem}
+.flbl{font-size:11px;color:var(--muted);margin-bottom:7px;display:block;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
+.finput{width:100%;background:var(--bg2);border:1px solid var(--b2);color:var(--text);padding:11px 14px;border-radius:10px;font-family:'Cairo',sans-serif;font-size:14px;outline:none;transition:.2s;margin-bottom:1.2rem}
+.finput:focus{border-color:var(--gold);background:rgba(240,165,0,.03)}
+.pkgs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.3rem}
+.pkg{background:var(--bg2);border:1.5px solid var(--b1);border-radius:12px;padding:14px 8px;text-align:center;cursor:pointer;transition:.25s;position:relative}
+.pkg:hover{border-color:var(--b2)}
+.pkg.on{border-color:var(--gold);background:rgba(240,165,0,.05)}
+.pkg-lbl{position:absolute;top:-9px;right:50%;transform:translateX(50%);font-size:9px;font-weight:800;padding:2px 9px;border-radius:5px;white-space:nowrap}
+.pkg-pop{background:var(--goldg);color:#000}
+.pkg-disc{background:var(--red);color:#fff}
+.pkg-amt{font-size:17px;font-weight:900;color:var(--gold);line-height:1}
+.pkg-unit{font-size:10px;color:var(--muted);margin:3px 0}
+.pkg-price{font-size:14px;font-weight:800;color:var(--text)}
+.pkg-old{font-size:10px;color:var(--muted2);text-decoration:line-through}
+.pays{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.2rem}
+.pay{background:var(--bg2);border:1.5px solid var(--b1);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:.2s}
+.pay:hover,.pay.on{border-color:var(--gold);background:rgba(240,165,0,.04)}
+.pay-ico{font-size:22px;flex-shrink:0;width:32px;text-align:center}
+.pay-nm{font-size:12px;font-weight:800}
+.pay-sb{font-size:10px;color:var(--muted)}
+.sumbox{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:14px;margin-bottom:1.2rem}
+.sr{display:flex;justify-content:space-between;font-size:12px;padding:5px 0;color:var(--muted);font-weight:600}
+.sr.tot{font-size:15px;font-weight:900;color:var(--text);border-top:1px solid var(--b1);padding-top:12px;margin-top:6px}
+.sr .save{color:var(--green);font-weight:800}
+.sub-btn{width:100%;padding:14px;border:none;border-radius:13px;background:var(--goldg);color:#000;font-family:'Cairo',sans-serif;font-weight:900;font-size:15px;cursor:pointer;transition:.25s;letter-spacing:.3px}
+.sub-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 28px rgba(240,165,0,.3)}
+.sub-btn:disabled{opacity:.55;cursor:not-allowed}
+.success{text-align:center;padding:2.5rem 1rem}
+.si{font-size:64px;animation:pop .45s ease;margin-bottom:12px;display:block}
+@keyframes pop{0%{transform:scale(0) rotate(-20deg)}70%{transform:scale(1.1) rotate(3deg)}100%{transform:scale(1) rotate(0)}}
+.st{font-size:22px;font-weight:900;color:var(--green);margin-bottom:8px}
+.soid{display:inline-block;background:var(--bg2);border:1px solid var(--b1);border-radius:9px;padding:10px 20px;font-family:monospace;font-size:15px;color:var(--gold);letter-spacing:3px;margin:14px 0}
+.smsg{color:var(--muted);font-size:13px;line-height:1.9;margin-bottom:1.5rem}
 
 /* TOAST */
-.toast{position:fixed;top:72px;left:50%;transform:translateX(-50%) translateY(-10px);background:#1A2235;border:1px solid #FF4500;color:#fff;padding:11px 22px;border-radius:10px;font-family:'Cairo',sans-serif;font-size:13px;z-index:999;opacity:0;transition:.3s;pointer-events:none}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast{position:fixed;top:72px;left:50%;transform:translateX(-50%) translateY(-10px);background:var(--card2);border:1px solid var(--b2);color:var(--text);padding:10px 24px;border-radius:10px;font-family:'Cairo',sans-serif;font-size:13px;z-index:999;opacity:0;transition:.3s;pointer-events:none;white-space:nowrap;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 
-footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 1.5rem 1.5rem;text-align:center}
-.f-logo{font-size:18px;font-weight:800;color:var(--gold);margin-bottom:6px}
-.f-links{display:flex;gap:18px;justify-content:center;margin:10px 0;flex-wrap:wrap}
-.f-links a{color:var(--muted);text-decoration:none;font-size:12px;transition:.2s}.f-links a:hover{color:var(--gold)}
-.f-copy{color:var(--muted);font-size:12px;margin-top:14px}
-.divider{height:1px;background:var(--border);margin:1.5rem 0}
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--b1);padding:3.5rem 1.5rem 2rem}
+.foot-w{max-width:1200px;margin:auto}
+.foot-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}
+.fbrand-name{font-size:18px;font-weight:900;color:var(--gold);margin-bottom:8px}
+.fbrand-desc{color:var(--muted);font-size:13px;line-height:1.9;max-width:240px}
+.fcol h5{font-size:12px;font-weight:800;color:var(--text);margin-bottom:14px;letter-spacing:.6px;text-transform:uppercase}
+.fcol a{display:block;color:var(--muted);text-decoration:none;font-size:13px;margin-bottom:9px;transition:.2s;font-weight:600}
+.fcol a:hover{color:var(--gold)}
+.foot-bot{border-top:1px solid var(--b1);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.foot-copy{font-size:12px;color:var(--muted2);font-weight:600}
+.foot-pays{display:flex;gap:8px}
+.pay-chip{background:var(--card);border:1px solid var(--b1);border-radius:7px;padding:5px 12px;font-size:11px;color:var(--muted);font-weight:700}
 
-@media(max-width:768px){
-  .hero-content{grid-template-columns:1fr;text-align:center}.hero-visual{display:none}
-  .games-grid,.feats,.offers-grid{grid-template-columns:1fr}
-  .pkgs{grid-template-columns:repeat(2,1fr)}.stats{justify-content:center}
-  .nav-links{display:none}
+@media(max-width:960px){
+  .hero-w{grid-template-columns:1fr}.hero-right{display:none}
+  .g-grid{grid-template-columns:1fr 1fr}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .promo-grid{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .nav-search,.nav-links{display:none}
+}
+@media(max-width:600px){
+  .g-grid{grid-template-columns:1fr}
+  .pkgs{grid-template-columns:1fr 1fr}
+  .foot-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <div class="nav-inner">
+  <div class="nav-w">
     <a href="#" class="logo">
-      <div class="logo-box">S</div>
-      <span class="logo-text">Sahara Store</span>
+      <div class="logo-mark">S</div>
+      <span class="logo-txt">Sahara<em>Store</em></span>
     </a>
-    <ul class="nav-links">
-      <li><a href="#games">الألعاب</a></li>
-      <li><a href="#offers">العروض</a></li>
-      <li><a href="#contact">تواصل</a></li>
-    </ul>
-    <button class="nav-cta" onclick="scroll2('#games')">اشحن الآن ⚡</button>
+    <div class="nav-search">
+      <span class="ns-ico">🔍</span>
+      <input placeholder="ابحث عن لعبة..." id="ns" oninput="filterGames(this.value)">
+    </div>
+    <div class="nav-links">
+      <a href="#games" class="active">الألعاب</a>
+      <a href="#promos">العروض</a>
+      <a href="#why">لماذا نحن</a>
+    </div>
+    <div class="nav-act">
+      <button class="btn-sec" onclick="sc('#why')">تواصل معنا</button>
+      <button class="btn-pri" onclick="sc('#games')">اشحن الآن ⚡</button>
+    </div>
   </div>
 </nav>
 
+<!-- HERO -->
 <div class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
+  <div class="hero-glow-1"></div>
+  <div class="hero-glow-2"></div>
+  <div class="hero-w">
     <div>
-      <div class="badge"><span class="badge-dot"></span> الأسرع في الجزائر</div>
-      <h1>اشحن ألعابك<br>مع <em>Sahara Store</em></h1>
-      <p class="hero-sub">متجرك الجزائري لشحن Mobile Legends وFree Fire وPUBG. أسعار تنافسية وتوصيل فوري بجميع طرق الدفع المحلية.</p>
-      <div class="hero-btns">
-        <button class="btn-g" onclick="scroll2('#games')">اشحن الآن ⚡</button>
-        <button class="btn-o" onclick="scroll2('#offers')">عروض الأسبوع 🔥</button>
+      <div class="badge"><span class="badge-dot"></span>موثوق · آمن · توصيل فوري</div>
+      <h1>اشحن ألعابك<br>بأفضل <span class="hl">الأسعار</span><br>في الجزائر 🇩🇿</h1>
+      <p class="hero-desc">متجرك الجزائري الأول لشحن Mobile Legends وFree Fire وPUBG Mobile. توصيل فوري خلال دقائق، أسعار تنافسية، وجميع طرق الدفع المحلية.</p>
+      <div class="hero-ctas">
+        <button class="btn-pri" onclick="sc('#games')">اشحن الآن ⚡</button>
+        <button class="btn-sec" onclick="sc('#promos')">عروض الأسبوع 🔥</button>
       </div>
-      <div class="stats">
-        <div><div class="stat-n">+5K</div><div class="stat-l">عميل راضٍ</div></div>
-        <div><div class="stat-n">24/7</div><div class="stat-l">خدمة مستمرة</div></div>
-        <div><div class="stat-n">99%</div><div class="stat-l">نسبة النجاح</div></div>
+      <div class="hero-stats">
+        <div class="hs"><div class="hs-n">+5K</div><div class="hs-l">عميل راضٍ</div></div>
+        <div class="hs"><div class="hs-n">24/7</div><div class="hs-l">خدمة مستمرة</div></div>
+        <div class="hs"><div class="hs-n">99%</div><div class="hs-l">نسبة النجاح</div></div>
+        <div class="hs"><div class="hs-n">&lt;5دق</div><div class="hs-l">وقت التوصيل</div></div>
       </div>
     </div>
-    <div class="hero-visual float-anim">
-      <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#FFB800" stop-opacity=".25"/>
-            <stop offset="100%" stop-color="#FFB800" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <circle cx="160" cy="160" r="150" fill="url(#glow)"/>
-        <circle cx="160" cy="160" r="110" fill="none" stroke="#FFB80022" stroke-width="1"/>
-        <circle cx="160" cy="160" r="140" fill="none" stroke="#FFB80015" stroke-width="1"/>
-        <rect x="80" y="118" width="160" height="90" rx="22" fill="#0F1520" stroke="#FFB800" stroke-width="2"/>
-        <rect x="103" y="148" width="10" height="30" rx="3" fill="#FFB800" opacity=".8"/>
-        <rect x="95" y="156" width="26" height="10" rx="3" fill="#FFB800" opacity=".8"/>
-        <circle cx="215" cy="148" r="7" fill="#00C8FF" opacity=".9"/>
-        <circle cx="228" cy="160" r="7" fill="#FF4500" opacity=".9"/>
-        <circle cx="215" cy="172" r="7" fill="#F0C000" opacity=".9"/>
-        <circle cx="202" cy="160" r="7" fill="#00C864" opacity=".9"/>
-        <rect x="148" y="152" width="24" height="14" rx="4" fill="#1A2235" stroke="#FFB80060" stroke-width="1"/>
-        <circle cx="130" cy="175" r="12" fill="#1A2235" stroke="#FFB80050" stroke-width="1.5"/>
-        <circle cx="130" cy="175" r="5" fill="#FFB800" opacity=".7"/>
-        <circle cx="190" cy="145" r="12" fill="#1A2235" stroke="#FFB80050" stroke-width="1.5"/>
-        <circle cx="190" cy="145" r="5" fill="#FFB800" opacity=".7"/>
-        <rect x="82" y="108" width="35" height="18" rx="8" fill="#0F1520" stroke="#FFB80040" stroke-width="1.5"/>
-        <rect x="203" y="108" width="35" height="18" rx="8" fill="#0F1520" stroke="#FFB80040" stroke-width="1.5"/>
-        <text x="50" y="90" font-size="14" fill="#FFB800" opacity=".6">★</text>
-        <text x="255" y="240" font-size="10" fill="#00C8FF" opacity=".5">✦</text>
-        <text x="70" y="240" font-size="10" fill="#FF4500" opacity=".5">✦</text>
-        <text x="260" y="100" font-size="12" fill="#F0C000" opacity=".5">★</text>
-      </svg>
+    <div class="hero-right">
+      <div class="hcard hcard-1">
+        <div class="hc-ico" style="background:rgba(0,200,255,.1)">💎</div>
+        <div><div class="hc-nm">Mobile Legends</div><div class="hc-pr">86 Diamond — 127 دج</div></div>
+        <div class="hc-disc">-15%</div>
+      </div>
+      <div class="hcard hcard-2">
+        <div class="hc-ico" style="background:rgba(255,85,0,.1)">🔥</div>
+        <div><div class="hc-nm">Free Fire</div><div class="hc-pr">100 Diamond — 108 دج</div></div>
+        <div class="hc-disc">-10%</div>
+      </div>
+      <div class="hcard hcard-3">
+        <div class="hc-ico" style="background:rgba(240,192,0,.1)">🎯</div>
+        <div><div class="hc-nm">PUBG Mobile</div><div class="hc-pr">60 UC — 132 دج</div></div>
+        <div class="hc-disc">-12%</div>
+      </div>
     </div>
+  </div>
+  <div class="ticker-wrap">
+    <div class="ticker" id="tck"></div>
   </div>
 </div>
 
-<div style="padding:0 1.5rem;max-width:1200px;margin:0 auto 2rem">
-  <div class="promo-banner">
-    <div class="promo-fire">🔥</div>
-    <div class="promo-text">
-      <strong>عرض الأسبوع — خصم 15% على جميع باقات Mobile Legends!</strong>
-      <p>العرض ينتهي الأحد · استخدم كود الخصم عند الطلب</p>
-    </div>
-    <div class="promo-code" onclick="copyCode()" title="انقر للنسخ">SAHARA15</div>
-  </div>
-</div>
-
+<!-- GAMES -->
 <div class="sec" id="games">
-  <div class="sec-tag">الألعاب المتاحة</div>
-  <h2 class="sec-h">اختر <span>لعبتك</span></h2>
-  <p class="sec-sub">شحن فوري آمن · أفضل الأسعار في الجزائر</p>
-  <div class="games-grid">
-
-    <div class="game-card ml" onclick="openModal('ml')">
-      <div class="game-banner">
-        <div class="discount-badge">-15%</div>
-        <svg viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg" style="color:var(--ml)">
-          <polygon points="45,8 78,35 45,82 12,35" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
-          <polygon points="45,8 78,35 45,45" fill="currentColor" opacity=".4"/>
-          <polygon points="12,35 45,45 45,82" fill="currentColor" opacity=".2"/>
-          <line x1="12" y1="35" x2="78" y2="35" stroke="currentColor" stroke-width="2" opacity=".6"/>
-          <line x1="45" y1="8" x2="45" y2="45" stroke="currentColor" stroke-width="1.5" opacity=".5"/>
+  <div class="tabs" id="tabs">
+    <button class="tab on" onclick="setTab(this,'all')">🎮 كل الألعاب</button>
+    <button class="tab" onclick="setTab(this,'ml')">💎 Mobile Legends</button>
+    <button class="tab" onclick="setTab(this,'ff')">🔥 Free Fire</button>
+    <button class="tab" onclick="setTab(this,'pubg')">🎯 PUBG Mobile</button>
+  </div>
+  <div style="height:1.2rem"></div>
+  <div class="sec-hdr">
+    <div class="sec-title">الألعاب <em>المتاحة</em></div>
+    <div class="sec-link">عرض التفاصيل ←</div>
+  </div>
+  <div class="g-grid" id="gg">
+    <div class="gc ml" id="gc-ml" onclick="openModal('ml')">
+      <div class="gc-banner">
+        <div class="gc-glow"></div>
+        <div class="gc-tag tag-disc">-15%</div>
+        <div class="gc-tag tag-hot" style="left:10px;right:auto">🔥 الأشهر</div>
+        <svg width="80" height="80" viewBox="0 0 90 90">
+          <polygon points="45,8 78,35 45,82 12,35" fill="none" stroke="#00C8FF" stroke-width="2.5" stroke-linejoin="round"/>
+          <polygon points="45,8 78,35 45,45" fill="#00C8FF" opacity=".3"/>
+          <polygon points="12,35 45,45 45,82" fill="#00C8FF" opacity=".15"/>
+          <line x1="12" y1="35" x2="78" y2="35" stroke="#00C8FF" stroke-width="1.5" opacity=".5"/>
+          <line x1="45" y1="8" x2="45" y2="45" stroke="#00C8FF" stroke-width="1.2" opacity=".4"/>
         </svg>
       </div>
-      <div class="game-body">
-        <div class="game-name">Mobile Legends</div>
-        <div class="game-desc">شحن الماسات مباشرة على حسابك</div>
-        <div class="game-price-row">
-          <span class="game-from">يبدأ من</span>
-          <span class="game-price">127 دج</span>
-          <span class="game-old">150 دج</span>
+      <div class="gc-body">
+        <div class="gc-name">Mobile Legends</div>
+        <div class="gc-sub">💎 Diamonds · شحن فوري للحساب</div>
+        <div class="gc-ft">
+          <div><div class="gc-from">يبدأ من</div>
+          <div class="gc-prices"><span class="gc-old">150 دج</span><span class="gc-price">127 دج</span></div></div>
+          <button class="gc-act">اشحن الآن</button>
         </div>
-        <button class="charge-btn">💎 اشحن الآن</button>
       </div>
     </div>
-
-    <div class="game-card ff" onclick="openModal('ff')">
-      <div class="game-banner">
-        <div class="discount-badge">-10%</div>
-        <svg viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg" style="color:var(--ff)">
-          <path d="M45 10 C30 25 20 35 25 50 C28 60 35 65 30 75 C40 68 42 58 38 48 C44 55 46 65 42 75 C52 65 55 52 48 40 C55 48 58 56 55 68 C65 55 65 40 55 28 C62 35 65 45 60 55 C70 40 65 20 45 10Z" fill="currentColor" opacity=".7"/>
-          <path d="M45 30 C38 38 35 45 38 52 C40 57 44 60 41 68 C48 62 49 54 46 46 C50 51 51 58 48 65 C55 57 56 47 50 38Z" fill="currentColor" opacity=".9"/>
+    <div class="gc ff" id="gc-ff" onclick="openModal('ff')">
+      <div class="gc-banner">
+        <div class="gc-glow"></div>
+        <div class="gc-tag tag-disc">-10%</div>
+        <svg width="80" height="80" viewBox="0 0 90 90">
+          <path d="M45 10 C30 25 20 35 25 50 C28 60 35 65 30 75 C40 68 42 58 38 48 C44 55 46 65 42 75 C52 65 55 52 48 40 C55 48 58 56 55 68 C65 55 65 40 55 28 C62 35 65 45 60 55 C70 40 65 20 45 10Z" fill="#FF5500" opacity=".6"/>
+          <path d="M45 30 C38 38 35 45 38 52 C40 57 44 60 41 68 C48 62 49 54 46 46 C50 51 51 58 48 65 C55 57 56 47 50 38Z" fill="#FF5500" opacity=".9"/>
         </svg>
       </div>
-      <div class="game-body">
-        <div class="game-name">Free Fire</div>
-        <div class="game-desc">شحن الجواهر لحسابك مباشرة</div>
-        <div class="game-price-row">
-          <span class="game-from">يبدأ من</span>
-          <span class="game-price">108 دج</span>
-          <span class="game-old">120 دج</span>
+      <div class="gc-body">
+        <div class="gc-name">Free Fire</div>
+        <div class="gc-sub">💎 Diamonds · شحن فوري للحساب</div>
+        <div class="gc-ft">
+          <div><div class="gc-from">يبدأ من</div>
+          <div class="gc-prices"><span class="gc-old">120 دج</span><span class="gc-price">108 دج</span></div></div>
+          <button class="gc-act">اشحن الآن</button>
         </div>
-        <button class="charge-btn">🔥 اشحن الآن</button>
       </div>
     </div>
-
-    <div class="game-card pubg" onclick="openModal('pubg')">
-      <div class="game-banner">
-        <div class="discount-badge">-12%</div>
-        <svg viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg" style="color:var(--pubg)">
-          <circle cx="45" cy="45" r="32" fill="none" stroke="currentColor" stroke-width="3"/>
-          <circle cx="45" cy="45" r="18" fill="none" stroke="currentColor" stroke-width="2" opacity=".7"/>
-          <circle cx="45" cy="45" r="6" fill="currentColor"/>
-          <line x1="45" y1="10" x2="45" y2="26" stroke="currentColor" stroke-width="2.5"/>
-          <line x1="45" y1="64" x2="45" y2="80" stroke="currentColor" stroke-width="2.5"/>
-          <line x1="10" y1="45" x2="26" y2="45" stroke="currentColor" stroke-width="2.5"/>
-          <line x1="64" y1="45" x2="80" y2="45" stroke="currentColor" stroke-width="2.5"/>
+    <div class="gc pubg" id="gc-pubg" onclick="openModal('pubg')">
+      <div class="gc-banner">
+        <div class="gc-glow"></div>
+        <div class="gc-tag tag-disc">-12%</div>
+        <svg width="80" height="80" viewBox="0 0 90 90">
+          <circle cx="45" cy="45" r="30" fill="none" stroke="#F0C000" stroke-width="2.5"/>
+          <circle cx="45" cy="45" r="16" fill="none" stroke="#F0C000" stroke-width="1.8" opacity=".6"/>
+          <circle cx="45" cy="45" r="5" fill="#F0C000"/>
+          <line x1="45" y1="12" x2="45" y2="27" stroke="#F0C000" stroke-width="2.5"/>
+          <line x1="45" y1="63" x2="45" y2="78" stroke="#F0C000" stroke-width="2.5"/>
+          <line x1="12" y1="45" x2="27" y2="45" stroke="#F0C000" stroke-width="2.5"/>
+          <line x1="63" y1="45" x2="78" y2="45" stroke="#F0C000" stroke-width="2.5"/>
         </svg>
       </div>
-      <div class="game-body">
-        <div class="game-name">PUBG Mobile</div>
-        <div class="game-desc">شحن UC مباشرة على حسابك</div>
-        <div class="game-price-row">
-          <span class="game-from">يبدأ من</span>
-          <span class="game-price">132 دج</span>
-          <span class="game-old">150 دج</span>
+      <div class="gc-body">
+        <div class="gc-name">PUBG Mobile</div>
+        <div class="gc-sub">🪙 UC · شحن فوري للحساب</div>
+        <div class="gc-ft">
+          <div><div class="gc-from">يبدأ من</div>
+          <div class="gc-prices"><span class="gc-old">150 دج</span><span class="gc-price">132 دج</span></div></div>
+          <button class="gc-act">اشحن الآن</button>
         </div>
-        <button class="charge-btn">🎯 اشحن الآن</button>
       </div>
     </div>
   </div>
 </div>
 
-<div style="background:var(--bg2);padding:4rem 1.5rem" id="offers">
-<div style="max-width:1200px;margin:auto">
-  <div class="sec-tag">العروض والخصومات</div>
-  <h2 class="sec-h">عروض <span>حصرية</span></h2>
-  <p class="sec-sub">خصومات أسبوعية لعملائنا الكرام</p>
-  <div class="offers-grid">
-    <div class="offer-card hot">
-      <span class="offer-tag">🔥 الأكثر طلباً</span>
-      <div class="offer-title">باقة ML الذهبية</div>
-      <div class="offer-desc">514 Diamond بسعر مخفض لفترة محدودة. الأنسب للشحن الأسبوعي.</div>
-      <div class="offer-discount">-15%</div>
-      <div class="offer-sub">680 دج بدلاً من 800 دج</div>
-      <button class="btn-g" style="margin-top:14px;width:100%;font-size:13px;padding:9px" onclick="openModal('ml')">اشحن الآن</button>
+<!-- PROMOS -->
+<div class="sec" id="promos" style="padding-top:0">
+  <div class="sec-hdr"><div class="sec-title">عروض <em>حصرية</em></div></div>
+  <div class="promo-grid">
+    <div class="pc p1" onclick="openModal('ml')">
+      <div class="pc-light"></div>
+      <span class="pc-tag">⚡ عرض محدود الوقت</span>
+      <div class="pc-title">باقة ML الذهبية</div>
+      <div class="pc-desc">514 Diamond بأقل سعر في الجزائر<br>وفّر 120 دج على كل شحنة — خصم 15%</div>
+      <button class="btn-pri" style="font-size:13px;padding:10px 22px" onclick="event.stopPropagation();openModal('ml')">اشحن الآن — 680 دج</button>
+      <div class="pc-bg">-15%</div>
     </div>
-    <div class="offer-card special">
-      <span class="offer-tag">⚡ عرض خاص</span>
-      <div class="offer-title">باقة FF الكبيرة</div>
-      <div class="offer-desc">1060 Diamond لـ Free Fire بأفضل سعر في السوق الجزائري.</div>
-      <div class="offer-discount">-10%</div>
-      <div class="offer-sub">990 دج بدلاً من 1100 دج</div>
-      <button class="btn-g" style="margin-top:14px;width:100%;font-size:13px;padding:9px" onclick="openModal('ff')">اشحن الآن</button>
+    <div class="pc p2" onclick="openModal('pubg')">
+      <div class="pc-light"></div>
+      <span class="pc-tag">🎯 عرض PUBG الأسبوعي</span>
+      <div class="pc-title">باقة PUBG المميزة</div>
+      <div class="pc-desc">660 UC بخصم حصري لعملاء Sahara Store<br>توصيل فوري بعد تأكيد الدفع</div>
+      <button class="btn-pri" style="font-size:13px;padding:10px 22px" onclick="event.stopPropagation();openModal('pubg')">اشحن الآن — 1232 دج</button>
+      <div class="pc-bg">-12%</div>
     </div>
-    <div class="offer-card new">
-      <span class="offer-tag">🆕 جديد</span>
-      <div class="offer-title">باقة PUBG المميزة</div>
-      <div class="offer-desc">660 UC بخصم حصري لعملاء Sahara Store عند استخدام كود الخصم.</div>
-      <div class="offer-discount">-12%</div>
-      <div class="offer-sub">1232 دج بدلاً من 1400 دج</div>
-      <button class="btn-g" style="margin-top:14px;width:100%;font-size:13px;padding:9px" onclick="openModal('pubg')">اشحن الآن</button>
-    </div>
-  </div>
-</div>
-</div>
-
-<div class="sec">
-  <div class="sec-tag">لماذا نحن؟</div>
-  <h2 class="sec-h">مميزات <span>Sahara Store</span></h2>
-  <div class="feats" style="margin-top:1.5rem">
-    <div class="feat"><div class="feat-ico">⚡</div><div class="feat-t">توصيل فوري</div><div class="feat-d">يصل الشحن خلال دقائق من تأكيد الدفع</div></div>
-    <div class="feat"><div class="feat-ico">🔒</div><div class="feat-t">آمن 100%</div><div class="feat-d">حماية كاملة لبياناتك ومعاملاتك</div></div>
-    <div class="feat"><div class="feat-ico">💰</div><div class="feat-t">أسعار تنافسية</div><div class="feat-d">أفضل الأسعار مع خصومات أسبوعية</div></div>
-    <div class="feat"><div class="feat-ico">🎧</div><div class="feat-t">دعم 24/7</div><div class="feat-d">فريقنا متاح على واتساب في أي وقت</div></div>
   </div>
 </div>
 
-<footer id="contact">
-  <div class="f-logo">Sahara Store 🎮</div>
-  <p style="color:var(--muted);font-size:13px">متجرك الجزائري لشحن الألعاب</p>
-  <div class="f-links">
-    <a href="#">الرئيسية</a>
-    <a href="#games">الألعاب</a>
-    <a href="#offers">العروض</a>
-    <a href="https://wa.me/213XXXXXXXXX" target="_blank">📱 واتساب</a>
+<!-- WHY -->
+<div class="why-bg" id="why">
+  <div class="sec">
+    <div class="sec-title">لماذا <em>Sahara Store؟</em></div>
+    <div class="why-grid">
+      <div class="wc">
+        <div class="wc-ico" style="background:rgba(0,214,143,.1)">⚡</div>
+        <div class="wc-t">توصيل فوري</div>
+        <div class="wc-d">يصل الشحن لحسابك خلال دقائق من لحظة تأكيد الدفع</div>
+      </div>
+      <div class="wc">
+        <div class="wc-ico" style="background:rgba(74,144,226,.1)">🔒</div>
+        <div class="wc-t">آمن 100%</div>
+        <div class="wc-d">حماية كاملة لبياناتك — لا نحتاج كلمة المرور أبدًا</div>
+      </div>
+      <div class="wc">
+        <div class="wc-ico" style="background:rgba(240,165,0,.1)">💰</div>
+        <div class="wc-t">أفضل الأسعار</div>
+        <div class="wc-d">خصومات تصل لـ 15% وعروض حصرية كل أسبوع</div>
+      </div>
+      <div class="wc">
+        <div class="wc-ico" style="background:rgba(255,71,87,.1)">🎧</div>
+        <div class="wc-t">دعم 24/7</div>
+        <div class="wc-d">فريقنا متاح على واتساب في أي وقت تحتاجه</div>
+      </div>
+    </div>
   </div>
-  <div class="divider"></div>
-  <p class="f-copy">© 2025 Sahara Store · جميع الحقوق محفوظة · الجزائر 🇩🇿</p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-w">
+    <div class="foot-grid">
+      <div>
+        <div class="fbrand-name">Sahara Store</div>
+        <p class="fbrand-desc">متجرك الجزائري الموثوق لشحن الألعاب. أسرع توصيل وأفضل أسعار في السوق.</p>
+      </div>
+      <div class="fcol">
+        <h5>الألعاب</h5>
+        <a href="#" onclick="openModal('ml');return false">Mobile Legends</a>
+        <a href="#" onclick="openModal('ff');return false">Free Fire</a>
+        <a href="#" onclick="openModal('pubg');return false">PUBG Mobile</a>
+      </div>
+      <div class="fcol">
+        <h5>المساعدة</h5>
+        <a href="#">كيفية الشحن</a>
+        <a href="#">سياسة الاسترداد</a>
+        <a href="#">الأسئلة الشائعة</a>
+      </div>
+      <div class="fcol">
+        <h5>تواصل معنا</h5>
+        <a href="https://wa.me/213XXXXXXXXX" target="_blank">📱 واتساب</a>
+        <a href="#">📧 البريد الإلكتروني</a>
+        <a href="#">🕐 24/7 دعم متواصل</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span class="foot-copy">© 2025 Sahara Store · صُنع بـ ❤️ في الجزائر 🇩🇿</span>
+      <div class="foot-pays">
+        <span class="pay-chip">CIB</span>
+        <span class="pay-chip">EDAHABIA</span>
+        <span class="pay-chip">BaridiMob</span>
+        <span class="pay-chip">CCP</span>
+        <span class="pay-chip">واتساب</span>
+      </div>
+    </div>
+  </div>
 </footer>
 
-<div class="overlay" id="overlay" onclick="closeOut(event)">
-  <div class="modal"><button class="mclose" onclick="closeModal()">✕</button><div id="mc"></div></div>
+<!-- MODAL -->
+<div class="overlay" id="ov" onclick="closeOut(event)">
+  <div class="modal">
+    <div class="modal-hdr">
+      <div class="mh-left">
+        <div class="mh-ico" id="mico"></div>
+        <div><div class="mh-name" id="mgn"></div><div class="mh-sub">اختر الباقة وأكمل الطلب</div></div>
+      </div>
+      <button class="mclose" onclick="closeModal()">✕</button>
+    </div>
+    <div class="mbody" id="mb"></div>
+  </div>
 </div>
 <div class="toast" id="toast"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>
 emailjs.init('QG2JDfRIX54h-3dNx');
-const serviceID = 'service_cw2fxm9';
-const templateID = 'template_bfhweb8';
-const G = {
-  ml:{name:'Mobile Legends',ico:'💎',cur:'Diamond',idL:'معرف اللاعب (ID)',idP:'123456789',zoneL:'Zone ID',zoneP:'1234',
+const SVC='service_cw2fxm9',TPL='template_bfhweb8';
+const WA_NUM='213XXXXXXXXX';
+
+const G={
+  ml:{name:'Mobile Legends',ico:'💎',cur:'Diamond',idL:'معرف اللاعب (ID)',idP:'مثال: 123456789',zL:'Zone ID',zP:'مثال: 1234',
     pkgs:[{a:'86',p:'127',o:'150'},{a:'172',p:'238',o:'280'},{a:'257',p:'357',o:'420'},{a:'514',p:'680',o:'800',pop:true},{a:'1060',p:'1317',o:'1550'},{a:'2195',p:'2635',o:'3100',disc:true}]},
-  ff:{name:'Free Fire',ico:'🔥',cur:'Diamond',idL:'معرف اللاعب (UID)',idP:'987654321',zoneL:null,
+  ff:{name:'Free Fire',ico:'🔥',cur:'Diamond',idL:'معرف اللاعب (UID)',idP:'مثال: 987654321',zL:null,
     pkgs:[{a:'100',p:'108',o:'120'},{a:'210',p:'216',o:'240'},{a:'520',p:'522',o:'580',pop:true},{a:'1060',p:'990',o:'1100'},{a:'2180',p:'1980',o:'2200'},{a:'5600',p:'4950',o:'5500',disc:true}]},
-  pubg:{name:'PUBG Mobile',ico:'🎯',cur:'UC',idL:'معرف اللاعب (ID)',idP:'5123456789',zoneL:null,
+  pubg:{name:'PUBG Mobile',ico:'🎯',cur:'UC',idL:'معرف اللاعب (ID)',idP:'مثال: 5123456789',zL:null,
     pkgs:[{a:'60',p:'132',o:'150'},{a:'180',p:'352',o:'400'},{a:'325',p:'616',o:'700',pop:true},{a:'660',p:'1232',o:'1400'},{a:'1800',p:'3256',o:'3700'},{a:'3850',p:'6600',o:'7500',disc:true}]}
 };
 let cg=null,sp=null,spay=null;
 
-function openModal(g){cg=g;sp=null;spay=null;renderForm();document.getElementById('overlay').classList.add('on')}
-function closeModal(){document.getElementById('overlay').classList.remove('on')}
-function closeOut(e){if(e.target===document.getElementById('overlay'))closeModal()}
+function openModal(g){
+  cg=g;sp=null;spay=null;
+  const d=G[g];
+  document.getElementById('mico').textContent=d.ico;
+  document.getElementById('mgn').textContent=d.name;
+  renderMBody();
+  document.getElementById('ov').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('ov').classList.remove('on');
+  document.body.style.overflow='';
+}
+function closeOut(e){if(e.target===document.getElementById('ov'))closeModal()}
 
-function renderForm(){
+function renderMBody(){
   const g=G[cg];
-  document.getElementById('mc').innerHTML=`
-    <div class="mhead"><div class="mico">${g.ico}</div><div><div class="mtitle">${g.name}</div><div class="msub">اختر الباقة وأدخل بياناتك</div></div></div>
-    <label class="flabel">${g.idL}</label>
-    <input class="finput" id="pid" placeholder="${g.idP}"/>
-    ${g.zoneL?`<label class="flabel">${g.zoneL}</label><input class="finput" id="zid" placeholder="${g.zoneP}"/>`:''}
-    <label class="flabel">اختر الباقة</label>
+  document.getElementById('mb').innerHTML=`
+    <label class="flbl">${g.idL}</label>
+    <input class="finput" id="pid" placeholder="${g.idP}" inputmode="numeric"/>
+    ${g.zL?`<label class="flbl">${g.zL}</label><input class="finput" id="zid" placeholder="${g.zP}" inputmode="numeric"/>`:''}
+    <label class="flbl" style="margin-bottom:9px">اختر الباقة</label>
     <div class="pkgs">${g.pkgs.map((p,i)=>`
       <div class="pkg" id="pk${i}" onclick="selPkg(${i})">
-        ${p.pop?'<div class="pkg-pop">الأشهر</div>':''}
-        ${p.disc?'<div class="pkg-disc">خصم</div>':''}
+        ${p.pop?'<div class="pkg-lbl pkg-pop">⭐ الأشهر</div>':''}
+        ${p.disc?'<div class="pkg-lbl pkg-disc">🔥 خصم</div>':''}
         <div class="pkg-amt">${p.a}</div>
         <div class="pkg-unit">${g.cur}</div>
         <div class="pkg-price">${p.p} دج</div>
         <div class="pkg-old">${p.o} دج</div>
-      </div>`).join('')}</div>
-    <label class="flabel">طريقة الدفع</label>
-    <div class="pays">
-      <div class="pay" id="py0" onclick="selPay(0,'💳','بطاقة بنكية','CIB / EDAHABIA')"><div class="pay-ico">💳</div><div><div class="pay-lbl">بطاقة بنكية</div><div class="pay-sub">CIB / EDAHABIA</div></div></div>
-      <div class="pay" id="py1" onclick="selPay(1,'📮','بريدي موب','BaridiMob')"><div class="pay-ico">📮</div><div><div class="pay-lbl">بريدي موب</div><div class="pay-sub">BaridiMob</div></div></div>
-      <div class="pay" id="py2" onclick="selPay(2,'🏦','CCP','حساب البريد')"><div class="pay-ico">🏦</div><div><div class="pay-lbl">CCP</div><div class="pay-sub">حساب البريد</div></div></div>
-      <div class="pay" id="py3" onclick="selPay(3,'💬','واتساب','تواصل مباشر')"><div class="pay-ico">💬</div><div><div class="pay-lbl">واتساب</div><div class="pay-sub">تواصل مباشر</div></div></div>
+      </div>`).join('')}
     </div>
-    <div id="sumbox"></div>
-    <button class="sub-btn" onclick="submit()">تأكيد الطلب ⚡</button>`;
+    <label class="flbl" style="margin-bottom:9px">طريقة الدفع</label>
+    <div class="pays">
+      <div class="pay" id="py0" onclick="selPay(0,'💳','بطاقة بنكية','CIB / EDAHABIA')"><div class="pay-ico">💳</div><div><div class="pay-nm">بطاقة بنكية</div><div class="pay-sb">CIB / EDAHABIA</div></div></div>
+      <div class="pay" id="py1" onclick="selPay(1,'📮','بريدي موب','BaridiMob')"><div class="pay-ico">📮</div><div><div class="pay-nm">بريدي موب</div><div class="pay-sb">BaridiMob</div></div></div>
+      <div class="pay" id="py2" onclick="selPay(2,'🏦','CCP','حساب البريد')"><div class="pay-ico">🏦</div><div><div class="pay-nm">CCP</div><div class="pay-sb">حساب البريد</div></div></div>
+      <div class="pay" id="py3" onclick="selPay(3,'💬','واتساب','تواصل مباشر')"><div class="pay-ico">💬</div><div><div class="pay-nm">واتساب</div><div class="pay-sb">تواصل مباشر</div></div></div>
+    </div>
+    <div id="sbox"></div>
+    <button class="sub-btn" id="sbtn" onclick="doSubmit()">تأكيد الطلب ⚡</button>`;
 }
 
-function selPkg(i){sp=i;document.querySelectorAll('.pkg').forEach((e,j)=>e.classList.toggle('sel',j===i));renderSum()}
-function selPay(i,ico,lbl,sub){spay={i,ico,lbl};document.querySelectorAll('.pay').forEach((e,j)=>e.classList.toggle('sel',j===i));renderSum()}
+function selPkg(i){
+  sp=i;
+  document.querySelectorAll('.pkg').forEach((e,j)=>e.classList.toggle('on',j===i));
+  renderSum();
+}
+function selPay(i,ico,nm,sb){
+  spay={i,ico,nm,sb};
+  document.querySelectorAll('.pay').forEach((e,j)=>e.classList.toggle('on',j===i));
+  if(i===3){
+    if(sp===null){toast('⚠️ اختر الباقة أولاً');return}
+    const g=G[cg],p=g.pkgs[sp];
+    const pid=document.getElementById('pid').value.trim();
+    const msg=`مرحباً، أريد شحن:\n🎮 اللعبة: ${g.name}\n💎 الباقة: ${p.a} ${g.cur}\n💰 السعر: ${p.p} دج\n🆔 معرف اللاعب: ${pid||'لم يُدخل بعد'}`;
+    window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(msg)}`,'_blank');
+    return;
+  }
+  renderSum();
+}
 function renderSum(){
-  if(sp===null||!spay)return;
+  if(sp===null||!spay||spay.i===3)return;
   const g=G[cg],p=g.pkgs[sp];
-  document.getElementById('sumbox').innerHTML=`
-    <div class="summary">
-      <div class="sum-row"><span>اللعبة</span><span>${g.name}</span></div>
-      <div class="sum-row"><span>الباقة</span><span>${p.a} ${g.cur}</span></div>
-      <div class="sum-row"><span>التوفير</span><span style="color:#4ADE80">-${parseInt(p.o)-parseInt(p.p)} دج</span></div>
-      <div class="sum-row"><span>طريقة الدفع</span><span>${spay.ico} ${spay.lbl}</span></div>
-      <div class="sum-row"><span>الإجمالي</span><span>${p.p} دج</span></div>
-    </div>`;}
+  const saved=parseInt(p.o)-parseInt(p.p);
+  document.getElementById('sbox').innerHTML=`
+    <div class="sumbox">
+      <div class="sr"><span>اللعبة</span><span>${g.name}</span></div>
+      <div class="sr"><span>الباقة</span><span>${p.a} ${g.cur}</span></div>
+      <div class="sr"><span>السعر الأصلي</span><span style="text-decoration:line-through;color:var(--muted2)">${p.o} دج</span></div>
+      <div class="sr"><span>التوفير</span><span class="save">-${saved} دج 🎉</span></div>
+      <div class="sr"><span>طريقة الدفع</span><span>${spay.ico} ${spay.nm}</span></div>
+      <div class="sr tot"><span>الإجمالي</span><span style="color:var(--gold)">${p.p} دج</span></div>
+    </div>`;
+}
 
-function submit(){
+function doSubmit(){
   const pid=document.getElementById('pid');
   if(!pid||!pid.value.trim()){toast('⚠️ يرجى إدخال معرف اللاعب');return}
   if(sp===null){toast('⚠️ يرجى اختيار باقة');return}
   if(!spay){toast('⚠️ يرجى اختيار طريقة الدفع');return}
-  const g=G[cg],p=g.pkgs[sp],id=pid.value.trim();
+  if(spay.i===3)return;
+  const g=G[cg],p=g.pkgs[sp],pid2=pid.value.trim();
   const zEl=document.getElementById('zid'),zone=zEl?zEl.value.trim():'';
-  const oid='SS-'+Math.random().toString(36).substr(2,8).toUpperCase();
-  const btn=document.querySelector('.sub-btn');
-  btn.textContent='⏳ جاري الإرسال...';btn.disabled=true;
-  emailjs.send(serviceID, templateID, {
-    order_id: oid,
-    game: g.name,
-    package: p.a+' '+g.cur,
-    price: p.p+' دج',
-    player_id: id+(zone?' | Zone: '+zone:''),
-    payment: spay.lbl
+  const oid='SS-'+Date.now().toString(36).toUpperCase().slice(-6)+Math.random().toString(36).substr(2,3).toUpperCase();
+  const btn=document.getElementById('sbtn');
+  btn.innerHTML='⏳ جاري إرسال الطلب...';btn.disabled=true;
+  emailjs.send(SVC,TPL,{
+    order_id:oid,game:g.name,
+    package:p.a+' '+g.cur,price:p.p+' دج',
+    player_id:pid2+(zone?' | Zone: '+zone:''),
+    payment:spay.nm+' ('+spay.sb+')',
+    saving:String(parseInt(p.o)-parseInt(p.p))+' دج'
   }).then(()=>{
-    document.getElementById('mc').innerHTML=`
+    document.getElementById('mb').innerHTML=`
       <div class="success">
-        <div class="s-ico">✅</div>
-        <div class="s-title">تم استلام طلبك!</div>
-        <div class="s-id">${oid}</div>
-        <p class="s-msg">وصل طلبك على البريد الإلكتروني.<br>سيصلك الشحن خلال دقائق بعد تأكيد الدفع.</p>
-        <button class="btn-g" style="margin-top:18px" onclick="closeModal()">إغلاق</button>
+        <span class="si">✅</span>
+        <div class="st">تم استلام طلبك بنجاح!</div>
+        <div class="soid">${oid}</div>
+        <p class="smsg">📧 تم إرسال تأكيد الطلب إلى البريد الإلكتروني.<br>⚡ سيصلك الشحن خلال دقائق بعد تأكيد الدفع.<br>📱 للمتابعة: تواصل معنا عبر واتساب.</p>
+        <button class="btn-pri" onclick="closeModal()">إغلاق الطلب</button>
       </div>`;
   },()=>{
-    btn.textContent='تأكيد الطلب ⚡';btn.disabled=false;
-    toast('❌ فشل الإرسال، تحقق من الاتصال بالإنترنت');
-  });}
+    btn.innerHTML='تأكيد الطلب ⚡';
+    btn.disabled=false;
+    toast('❌ فشل إرسال الطلب — تحقق من الاتصال');
+  });
+}
 
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
-function copyCode(){navigator.clipboard.writeText('SAHARA15').catch(()=>{});toast('✅ تم نسخ كود الخصم: SAHARA15')}
-function scroll2(id){document.querySelector(id).scrollIntoView({behavior:'smooth'})}
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('on');
+  setTimeout(()=>t.classList.remove('on'),2800);
+}
+function sc(s){document.querySelector(s)?.scrollIntoView({behavior:'smooth',block:'start'})}
+
+function setTab(el,key){
+  document.querySelectorAll('.tab').forEach(e=>e.classList.remove('on'));
+  el.classList.add('on');
+  ['ml','ff','pubg'].forEach(k=>{
+    const c=document.getElementById('gc-'+k);
+    if(c)c.style.display=(key==='all'||key===k)?'':'none';
+  });
+}
+
+function filterGames(v){
+  const q=v.trim().toLowerCase();
+  ['ml','ff','pubg'].forEach(k=>{
+    const c=document.getElementById('gc-'+k);
+    if(!c)return;
+    const n=G[k].name.toLowerCase();
+    c.style.display=(!q||n.includes(q)||k.includes(q))?'':'none';
+  });
+}
+
+// TICKER
+const tItems=[
+  '✅ شحن آمن وموثوق','⚡ توصيل خلال دقائق','💰 أفضل أسعار الجزائر','🇩🇿 متجر جزائري 100%',
+  '🎮 Mobile Legends Diamonds','🔥 Free Fire Diamonds','🎯 PUBG Mobile UC',
+  '📱 ادفع بـ BaridiMob','🏦 ادفع بـ CCP','💳 ادفع بـ CIB / EDAHABIA','💬 طلب عبر واتساب'
+];
+const tEl=document.getElementById('tck');
+[...tItems,...tItems].forEach(t=>{
+  const d=document.createElement('span');
+  d.className='tick-item';
+  d.innerHTML=`${t}<span class="tick-sep">·</span>`;
+  tEl.appendChild(d);
+});
 </script>
-
 </body>
 </html>
